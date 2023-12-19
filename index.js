@@ -268,7 +268,7 @@ app.get("/mail", function(req, res){
             from: process.env.FROM,
             to: username,
             subject: 'Verification Email',
-            text: 'This is the Verification Email to activate your account - '+'https://gpa-main.herokuapp.com/authverify?uname='+username+'&auth='+docs[0]._id.toString()
+            text: 'This is the Verification Email to activate your account - '+'https://gpa-pzn0.onrender.com/authverify?uname='+username+'&auth='+docs[0]._id.toString()
     }
     transporter.sendMail(mailOptions, function(error, response){
         if(error){
