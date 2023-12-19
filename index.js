@@ -148,8 +148,8 @@ app.post("/logpassword", function(req, res) {
     var cYTemp = coordY.split(",");
     var cX = cXTemp.map(Number);
     var cY = cYTemp.map(Number);
-    if((vX[0]-10 <= cX[0] && cX[0] <= vX[0]+10) && (vX[1]-10 <= cX[1] && cX[1] <= vX[1]+10) && (vX[2]-10 <= cX[2] && cX[2] <= vX[2]+10)) {
-        if((vY[0]-10 <= cY[0] && cY[0] <= vY[0]+10) && (vY[1]-10 <= cY[1] && cY[1] <= vY[1]+10) && (vY[2]-10 <= cY[2] && cY[2] <= vY[2]+10)) {
+    if((vX[0]-30 <= cX[0] && cX[0] <= vX[0]+30) && (vX[1]-30 <= cX[1] && cX[1] <= vX[1]+30) && (vX[2]-30 <= cX[2] && cX[2] <= vX[2]+30)) {
+        if((vY[0]-30 <= cY[0] && cY[0] <= vY[0]+30) && (vY[1]-30 <= cY[1] && cY[1] <= vY[1]+30) && (vY[2]-30 <= cY[2] && cY[2] <= vY[2]+30)) {
             req.session.user = {
                 uuid: userid,
             }
