@@ -49,16 +49,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema)
 
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASS
-    }
-});
-
 //main
 app.get("/", function(req, res) {
     res.render("login");
@@ -122,6 +112,16 @@ function sendEmailWithTemplate(toEmail, subject, templateFile) {
 
     // Render the EJS template with data
     const renderedHTML = ejs.render(templateString, {time: new Date().toLocaleString('en-IN', {timeZone: 'IST'})});
+
+    var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASS
+    }
+});
 
     // Send email
     transporter.sendMail({
@@ -292,12 +292,24 @@ app.get("/mail", function(req, res){
             console.log(err);
         }
         else{
+
+            var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASS
+    }
+});
+            
             const mailOptions = {
                 from: process.env.FROM,
                 to: username,
                 subject: 'Verification Email',
                 text: 'This is the Verification Email to activate your account - '+'https://gpa-pzn0.onrender.com/authverify?uname='+username+'&auth='+docs[0]._id.toString()
             }
+            
             transporter.sendMail(mailOptions, function(error, response){
                 if(error){
                     console.log(error);
