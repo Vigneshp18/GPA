@@ -139,7 +139,7 @@ app.get("/auth", function(req,res) {
                     }
                     else {
                         await sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
-                        res.render("authfailure");
+                        res.redirect("authfailure");
                     }
                 }
                 else {
@@ -150,7 +150,7 @@ app.get("/auth", function(req,res) {
     });
 }
 else {
-    res.render("authfailure");
+    res.redirect("authfailure");
 }
 });
 
@@ -170,11 +170,11 @@ app.post("/logpassword", function(req, res) {
             res.redirect("/home");
         }
         else {
-            res.render("authfailure");
+            res.redirect("authfailure");
         }
     }
     else {
-        res.render("authfailure");
+        res.redirect("authfailure");
     }
 });
 
@@ -205,7 +205,7 @@ app.get("/select", function(req,res){
         res.render('select');
     }
     else {
-        res.render("authfailure");
+        res.redirect("authfailure");
     }
 })
 
@@ -219,7 +219,7 @@ app.get("/regpassword", function(req,res){
         res.render("regpassword",{'img1':values[0],'img2':values[1],'img3':values[2]});
     }
     else {
-        res.render("authfailure");
+        res.redirect("authfailure");
     }
 })
 
@@ -244,7 +244,7 @@ app.post("/regpassword", function(req, res) {
 //home
 app.get("/home", function(req, res) {
     if(typeof req.session.user?.uuid === 'undefined') {
-        res.render("authfailure");
+        res.redirect("authfailure");
     }
     else {
         console.log(req.session.user.uuid);
@@ -309,12 +309,16 @@ app.get("/authverify",function(req,res){
         });
     }
     else {
-        res.render("authfailure");
+        res.redirect("authfailure");
     }
 });
 
 app.get("/authsuccess",(req,res)=>{
     res.render("authsuccess");
+})
+
+app.get("/authfailure",(req,res)=>{
+    res.render("authfailure");
 })
 
 app.get("/logout",(req,res)=>{
