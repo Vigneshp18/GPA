@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const fs = require("fs");
 const mongoose = require("mongoose");
 const MongoStore = require('connect-mongo');
 var session = require("express-session");
@@ -137,7 +138,8 @@ app.get("/auth",function(req,res) {
                         res.render('logpassword',{'img1':values[0],'img2':values[1],'img3':values[2]});
                     }
                     else {
-                        res.send("Nothing");
+                        sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
+                        res.render("authfailure");
                     }
                 }
                 else {
@@ -320,7 +322,7 @@ app.get("/logout",(req,res)=>{
     res.send("logout successfully");
 })
 
-async function sendEmailWithTemplate(toEmail, subject, templateFile, data) {
+async function sendEmailWithTemplate(toEmail, subject, templateFile) {
   try {
     // Read EJS template file
     const templateString = fs.readFileSync(templateFile, 'utf8');
