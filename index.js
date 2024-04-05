@@ -115,10 +115,34 @@ app.post("/login", function(req, res) {
     }
 });
 
+function sendEmailWithTemplate(toEmail, subject, templateFile) {
+  try {
+    // Read EJS template file
+    const templateString = fs.readFileSync(templateFile, 'utf8');
+
+    // Render the EJS template with data
+    const renderedHTML = ejs.render(templateString, {time: new Date().toLocaleString('en-IN', {timeZone: 'IST'})});
+
+    // Send email
+    transporter.sendMail({
+      from: process.env.FROM,
+      to: toEmail,
+      subject: subject,
+      html: renderedHTML
+    });
+
+    console.log("Email Sent Successfully");
+    return true;
+  } catch (error) {
+    console.error('Error sending email:', error);
+      return false;
+  }
+}
+
 app.get("/auth", function(req,res) {
     if(username)
     {
-    User.find({'username': username}, async function (err, docs) {
+    User.find({'username': username}, function (err, docs) {
         if (err){
             console.log(err);
         }
@@ -138,7 +162,7 @@ app.get("/auth", function(req,res) {
                         res.render('logpassword',{'img1':values[0],'img2':values[1],'img3':values[2]});
                     }
                     else {
-                        await sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
+                        sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs')
                         res.redirect("authfailure");
                     }
                 }
@@ -325,28 +349,6 @@ app.get("/logout",(req,res)=>{
     req.session.destroy();
     res.send("logout successfully");
 })
-
-async function sendEmailWithTemplate(toEmail, subject, templateFile) {
-  try {
-    // Read EJS template file
-    const templateString = fs.readFileSync(templateFile, 'utf8');
-
-    // Render the EJS template with data
-    const renderedHTML = ejs.render(templateString, {time: new Date().toLocaleString('en-IN', {timeZone: 'IST'})});
-
-    // Send email
-    await transporter.sendMail({
-      from: process.env.FROM,
-      to: toEmail,
-      subject: subject,
-      html: renderedHTML
-    });
-
-    console.log('Email sent successfully!');
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-}
 
 //PORT
 app.listen(process.env.PORT || 3000, function() {
