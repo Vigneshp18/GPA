@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Already Registered</title>
+    <style>
+        /* Reset styles to avoid interference with email clients */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            height: calc(100vh - 40px); /* subtracting 20px top and 20px bottom padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Text content styles */
+        .content {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Button styles */
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        /* Footer styles */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 32 32" fill="none">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M29 16V9c0-1-1-2-2-2H5C4 7 3 8 3 9v14c0 1 1 2 2 2h11" stroke="#000000"/>
+  <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l11.862 8.212a2 2 0 002.276 0L29 9"/>
+  <circle cx="24" cy="23" r="5" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 26l6-6"/>
+</svg>
+        <div class="content">
+            <h2>Email Already Registered</h2>
+            <p>This email address is already associated with an account.</p>
+            <p>Please try to login to your account using email:</p>
+            <a href="/login" class="button">Login</a>
+        </div>
+        <div class="footer">
+            <p>If you believe this is a mistake, please contact support.</p>
+        </div>
+    </div>
+</body>
+</html>
