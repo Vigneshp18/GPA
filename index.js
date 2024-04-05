@@ -83,7 +83,7 @@ app.post("/login", function(req, res) {
                     }
                 }
                 else {
-                    res.send("Email Not yet registered");
+                    return res.redirect("not-register");
                 }
             }
         });
@@ -148,7 +148,7 @@ app.get("/auth", function(req,res) {
         }
         else{
             if(Object.keys(docs).length === 0) {
-                res.send('Email Not registered yet');
+                return res.redirect("not-register");
             }
             else {
                 if(docs[0]._doc.verify){
@@ -219,7 +219,7 @@ app.post("/register", function(req, res) {
                 res.redirect('select');
             }
             else {
-                res.send("Email already available");
+                return res.redirect("already-register");
             }
         }
     });
@@ -262,7 +262,6 @@ app.post("/regpassword", function(req, res) {
         verify: false,
     });
     myData.save();
-    // res.send("success");
     res.redirect("mail");
 });
 
@@ -358,9 +357,17 @@ app.get("/authfailure",(req,res)=>{
     res.render("authfailure");
 })
 
+app.get("/already-register", (req, res) => {
+    res.render("emailAlreadyRegister");
+});
+
+app.get("/not-register", (req, res) => {
+    res.render("emailNotRegister");
+});
+
 app.get("/logout",(req,res)=>{
     req.session.destroy();
-    res.send("logout successfully");
+    res.render("logout");
 })
 
 //PORT
