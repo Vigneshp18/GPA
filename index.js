@@ -266,22 +266,22 @@ app.get("/mail", function(req, res){
             console.log(err);
         }
         else{
-    const mailOptions = {
-            from: process.env.FROM,
-            to: username,
-            subject: 'Verification Email',
-            text: 'This is the Verification Email to activate your account - '+'https://gpa-pzn0.onrender.com/authverify?uname='+username+'&auth='+docs[0]._id.toString()
-    }
-    transporter.sendMail(mailOptions, function(error, response){
-        if(error){
-            console.log(error);
-        }else{
-            console.log('mail sent');
-        } 
+            const mailOptions = {
+                from: process.env.FROM,
+                to: username,
+                subject: 'Verification Email',
+                text: 'This is the Verification Email to activate your account - '+'https://gpa-pzn0.onrender.com/authverify?uname='+username+'&auth='+docs[0]._id.toString()
+            }
+            transporter.sendMail(mailOptions, function(error, response){
+                if(error){
+                    console.log(error);
+                }    else{
+                    console.log('mail sent');
+                } 
+            });
+        }
     });
-}
-});
-res.render('sendmail');
+    res.render('sendmail');
 });
 
 app.get("/authverify",function(req,res){
