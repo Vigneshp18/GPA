@@ -332,7 +332,7 @@ async function sendEmailWithTemplate(toEmail, subject, templateFile) {
 
     // Send email
     await transporter.sendMail({
-      from: 'your_email@example.com',
+      from: process.env.FROM,
       to: toEmail,
       subject: subject,
       html: renderedHTML
