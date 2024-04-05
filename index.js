@@ -115,7 +115,7 @@ app.post("/login", function(req, res) {
     }
 });
 
-app.get("/auth",function(req,res) {
+app.get("/auth",async function(req,res) {
     if(username)
     {
     User.find({'username': username}, function (err, docs) {
@@ -138,7 +138,7 @@ app.get("/auth",function(req,res) {
                         res.render('logpassword',{'img1':values[0],'img2':values[1],'img3':values[2]});
                     }
                     else {
-                        sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
+                        await sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
                         res.render("authfailure");
                     }
                 }
