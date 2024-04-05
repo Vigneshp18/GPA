@@ -47,6 +47,17 @@ const userSchema = new mongoose.Schema({
 { collection : 'gpa_users' });
 
 const User = mongoose.model("User", userSchema)
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASS
+    }
+});
+
 //main
 app.get("/", function(req, res) {
     res.render("login");
@@ -255,15 +266,6 @@ app.get("/mail", function(req, res){
             console.log(err);
         }
         else{
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PASS
-        }
-    });
     const mailOptions = {
             from: process.env.FROM,
             to: username,
@@ -317,6 +319,28 @@ app.get("/logout",(req,res)=>{
     req.session.destroy();
     res.send("logout successfully");
 })
+
+async function sendEmailWithTemplate(toEmail, subject, templateFile, data) {
+  try {
+    // Read EJS template file
+    const templateString = fs.readFileSync(templateFile, 'utf8');
+
+    // Render the EJS template with data
+    const renderedHTML = ejs.render(templateString, {time: new Date().toLocaleString('en-IN', {timeZone: 'IST'})});
+
+    // Send email
+    await transporter.sendMail({
+      from: 'your_email@example.com',
+      to: toEmail,
+      subject: subject,
+      html: renderedHTML
+    });
+
+    console.log('Email sent successfully!');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+}
 
 //PORT
 app.listen(process.env.PORT || 3000, function() {
