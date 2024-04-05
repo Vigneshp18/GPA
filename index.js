@@ -305,7 +305,7 @@ app.get("/authverify",function(req,res){
         });
     }
     else {
-        res.send("Authentication Failed");
+        res.render("authfailure");
     }
 });
 
