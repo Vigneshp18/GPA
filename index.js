@@ -137,7 +137,7 @@ app.get("/auth",function(req,res) {
     });
 }
 else {
-    res.send("Authentication Failed");
+    res.render("authfailure");
 }
 });
 
@@ -157,11 +157,11 @@ app.post("/logpassword", function(req, res) {
             res.redirect("/home");
         }
         else {
-            res.send("Authentication Failed");
+            res.render("authfailure");
         }
     }
     else {
-        res.send("Authentication Failed");
+        res.render("authfailure");
     }
 });
 
@@ -192,7 +192,7 @@ app.get("/select", function(req,res){
         res.render('select');
     }
     else {
-        res.send("Authentication Failed");
+        res.render("authfailure");
     }
 })
 
@@ -206,7 +206,7 @@ app.get("/regpassword", function(req,res){
         res.render("regpassword",{'img1':values[0],'img2':values[1],'img3':values[2]});
     }
     else {
-        res.send("Authentication Failed");
+        res.render("authfailure");
     }
 })
 
@@ -231,7 +231,7 @@ app.post("/regpassword", function(req, res) {
 //home
 app.get("/home", function(req, res) {
     if(typeof req.session.user?.uuid === 'undefined') {
-        res.send("Authentication Failed");
+        res.render("authfailure");
     }
     else {
         console.log(req.session.user.uuid);
