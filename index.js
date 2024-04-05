@@ -162,7 +162,6 @@ app.get("/auth", function(req,res) {
                         res.render('logpassword',{'img1':values[0],'img2':values[1],'img3':values[2]});
                     }
                     else {
-                        sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs')
                         res.redirect("authfailure");
                     }
                 }
@@ -194,10 +193,12 @@ app.post("/logpassword", function(req, res) {
             res.redirect("/home");
         }
         else {
+            sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
             res.redirect("authfailure");
         }
     }
     else {
+        sendEmailWithTemplate(username, 'UnAuthorized Access to Account', 'views/mailtemp.ejs');
         res.redirect("authfailure");
     }
 });
