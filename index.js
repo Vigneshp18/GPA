@@ -115,10 +115,10 @@ app.post("/login", function(req, res) {
     }
 });
 
-app.get("/auth",async function(req,res) {
+app.get("/auth", function(req,res) {
     if(username)
     {
-    User.find({'username': username}, function (err, docs) {
+    User.find({'username': username}, async function (err, docs) {
         if (err){
             console.log(err);
         }
